@@ -16,7 +16,7 @@
 
 ## Usage
 ```
-./ml_select.sh \
+./lm_select.sh \
     GENERAL_DOMAIN_CORPUS \
     SPECIFIC_DOMAIN_CORPUS \
     DEST_DIR \
@@ -35,7 +35,7 @@
 
 ### Example
 ```
-./ml_select.sh \
+./lm_select.sh \
     /path/to/general-domain.txt \
     /path/to/specific-domain.txt \
     selection_result \
