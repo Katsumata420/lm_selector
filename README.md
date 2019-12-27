@@ -1,3 +1,59 @@
+# lm_selector
+- This script is forked from [@lukeorland's implementation](https://github.com/lukeorland/moore_and_lewis_data_selection).
+- README written in Japanese is `README_jp.md`.
+
+## Diff
+- This script is aim to select in-domain data for monolingual corpus. 
+- We use KenLM for N-gram LM.  
+    - The original implementation uses SRILM.
+- We use the difference of cross entropy (the log probability normalized by the sentence length) as a selection filter. 
+    - The original implementation uses the difference of the perplexity.
+- We do not restrict the size of the general domain text in training the general LM.
+    - This size is the same as the specific domain text in the original.
+
+## Requirement
+- KenLM: https://github.com/kpu/kenlm
+
+## Usage
+```
+./ml_select.sh \
+    GENERAL_DOMAIN_CORPUS \
+    SPECIFIC_DOMAIN_CORPUS \
+    DEST_DIR \
+    [KENLM_BIN_DIR]
+```
+- `GENERAL_DOMAIN_CORPUS`: tokenized general domain text data; one line one sentence.
+- `SPECIFIC_DOMAIN_CORPUS`: tokenized specific domain text data; one line one sentence.
+- `DEST_DIR`: path to the directory where the sorted general domain text data is written.
+- `[KENLM_BIN_DIR]` (option): path to the directory where the KenLM binary have been compiled in your system. 
+    - It assumed by default that this path is `$PATH`.
+    - `[KENLM_BIN_DIR]` should be including `lmplz` and `build_binary`.
+
+### Outputs
+- `DEST_DIR/sorted-uniq-scores_general.tsv`: TSV file; f1 is difference of the cross entropy and f2 is each sentence.
+- `DEST_DIR/general_corpus_sorted.txt`: sorted general domain text.
+
+### Example
+```
+./ml_select.sh \
+    /path/to/general-domain.txt \
+    /path/to/specific-domain.txt \
+    selection_result \
+    /path/to/kenlm_bin
+```
+
+## Caution
+- We use `sort -n -r` as a sorting command. 
+    - If you have a necessary to use the E notation, use `sort -n -r -g` at line 163. 
+
+## Cite
+This soting method is implementation of the following paper.
+```
+Intelligent Selection of Language Model Training Data.
+Moore and Lewis., ACL2010
+```
+
+Original README is following.
 # Description #
 
 This script applies Moore and Lewis's approach to [intelligently selecting
