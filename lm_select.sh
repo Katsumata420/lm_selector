@@ -6,7 +6,7 @@ set -o pipefail
 
 MIN_NUM_EXPECTED_ARGS=3  # or 8, if the final argument is passed
 MAX_NUM_EXPECTED_ARGS=4  # or 8, if the final argument is passed
-KENLM=/work/katsumata/UMT/mosesdecoder
+KENLM=$PATH
 USAGE="$0 \\
     GENERAL_DOMAIN_CORPUS \\
     SPECIFIC_DOMAIN_CORPUS \\
@@ -100,7 +100,7 @@ for domain in general specific; do
     fi
     $KENLM_BIN_DIR/lmplz \
       -o 5 \
-      -T /work/katsumata/tmp \
+      -T ./ \
       -S 30G \
       --prune 0 0 1 \
        < $text \
