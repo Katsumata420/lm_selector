@@ -45,6 +45,7 @@
 ## Caution
 - We use `sort -n -r` as a sorting command. 
     - If you have a necessary to use the E notation, use `sort -n -r -g` at line 163. 
+- If input texts include the escape chars, use `script/escape-special-chars.perl` for KenLM.
 
 ## Cite
 This soting method is implementation of the following paper.
